@@ -1,0 +1,201 @@
+Defense,Attack,AUC,TPR@FPR5%,Best_F1
+PINN Guard (Euclidean),Naive_Bias,1.0,1.0,1.0
+PINN Guard (Euclidean),Adaptive_KL,1.0,1.0,1.0
+PINN Guard (Euclidean),Super_Adaptive,0.6920000000000001,0.04,0.7130434782608696
+PINN Guard (Euclidean),Balanced_Tradeoff,1.0,1.0,1.0
+PINN Guard (Euclidean),RKHS_Evasion,0.9652,0.88,0.9183673469387755
+PINN Guard (Euclidean),Spectral_Masking,0.45480000000000004,0.06,0.6666666666666666
+PINN Guard (Euclidean),Constrain_Scale,1.0,1.0,1.0
+PINN Guard (Euclidean),DBA_Part0,1.0,1.0,1.0
+PINN Guard (Euclidean),DBA_Part1,1.0,1.0,1.0
+PINN Guard (Euclidean),DBA_Part2,1.0,1.0,1.0
+PINN Guard (Euclidean),DBA_Part3,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_0,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_1,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_2,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_3,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_4,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_5,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_6,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_7,1.0,1.0,1.0
+PINN Guard (Euclidean),Variant_8,1.0,1.0,1.0
+PINN Guard (Fisher),Naive_Bias,0.8256000000000001,0.16,0.8205128205128205
+PINN Guard (Fisher),Adaptive_KL,0.008,0.0,0.6666666666666666
+PINN Guard (Fisher),Super_Adaptive,0.06680000000000001,0.0,0.6666666666666666
+PINN Guard (Fisher),Balanced_Tradeoff,0.001200000000000001,0.0,0.6666666666666666
+PINN Guard (Fisher),RKHS_Evasion,1.0,1.0,1.0
+PINN Guard (Fisher),Spectral_Masking,0.4484,0.06,0.6756756756756757
+PINN Guard (Fisher),Constrain_Scale,1.0,1.0,1.0
+PINN Guard (Fisher),DBA_Part0,1.0,1.0,1.0
+PINN Guard (Fisher),DBA_Part1,1.0,1.0,1.0
+PINN Guard (Fisher),DBA_Part2,1.0,1.0,1.0
+PINN Guard (Fisher),DBA_Part3,1.0,1.0,1.0
+PINN Guard (Fisher),Variant_0,0.0,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_1,0.0032000000000000006,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_2,0.0012000000000000012,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_3,0.0,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_4,0.00040000000000000034,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_5,0.00040000000000000034,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_6,0.0,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_7,0.0,0.0,0.6666666666666666
+PINN Guard (Fisher),Variant_8,0.0,0.0,0.6666666666666666
+L2 Filter (Ablation),Naive_Bias,1.0,1.0,1.0
+L2 Filter (Ablation),Adaptive_KL,1.0,1.0,1.0
+L2 Filter (Ablation),Super_Adaptive,0.98,0.9,0.9607843137254902
+L2 Filter (Ablation),Balanced_Tradeoff,1.0,1.0,1.0
+L2 Filter (Ablation),RKHS_Evasion,1.0,1.0,1.0
+L2 Filter (Ablation),Spectral_Masking,0.756,0.34,0.7304347826086957
+L2 Filter (Ablation),Constrain_Scale,1.0,1.0,1.0
+L2 Filter (Ablation),DBA_Part0,1.0,1.0,1.0
+L2 Filter (Ablation),DBA_Part1,1.0,1.0,1.0
+L2 Filter (Ablation),DBA_Part2,1.0,1.0,1.0
+L2 Filter (Ablation),DBA_Part3,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_0,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_1,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_2,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_3,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_4,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_5,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_6,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_7,1.0,1.0,1.0
+L2 Filter (Ablation),Variant_8,1.0,1.0,1.0
+FLAME,Naive_Bias,1.0,1.0,1.0
+FLAME,Adaptive_KL,1.0,1.0,1.0
+FLAME,Super_Adaptive,0.7564,0.22,0.7642276422764228
+FLAME,Balanced_Tradeoff,1.0,1.0,1.0
+FLAME,RKHS_Evasion,1.0,1.0,1.0
+FLAME,Spectral_Masking,0.5963999999999999,0.06,0.6853146853146853
+FLAME,Constrain_Scale,1.0,1.0,1.0
+FLAME,DBA_Part0,1.0,1.0,1.0
+FLAME,DBA_Part1,1.0,1.0,1.0
+FLAME,DBA_Part2,1.0,1.0,1.0
+FLAME,DBA_Part3,1.0,1.0,1.0
+FLAME,Variant_0,1.0,1.0,1.0
+FLAME,Variant_1,1.0,1.0,1.0
+FLAME,Variant_2,1.0,1.0,1.0
+FLAME,Variant_3,1.0,1.0,1.0
+FLAME,Variant_4,1.0,1.0,1.0
+FLAME,Variant_5,1.0,1.0,1.0
+FLAME,Variant_6,1.0,1.0,1.0
+FLAME,Variant_7,1.0,1.0,1.0
+FLAME,Variant_8,1.0,1.0,1.0
+DeepSight,Naive_Bias,0.4628,0.02,0.6758620689655173
+DeepSight,Adaptive_KL,1.0,1.0,1.0
+DeepSight,Super_Adaptive,0.8832,0.58,0.8205128205128205
+DeepSight,Balanced_Tradeoff,0.998,1.0,0.9803921568627451
+DeepSight,RKHS_Evasion,1.0,1.0,1.0
+DeepSight,Spectral_Masking,0.5648,0.08,0.71875
+DeepSight,Constrain_Scale,0.29519999999999996,0.0,0.6756756756756757
+DeepSight,DBA_Part0,0.44560000000000005,0.06,0.6713286713286714
+DeepSight,DBA_Part1,0.4308,0.04,0.6666666666666666
+DeepSight,DBA_Part2,0.39879999999999993,0.04,0.684931506849315
+DeepSight,DBA_Part3,0.46399999999999997,0.0,0.6865671641791045
+DeepSight,Variant_0,1.0,1.0,1.0
+DeepSight,Variant_1,1.0,1.0,1.0
+DeepSight,Variant_2,1.0,1.0,1.0
+DeepSight,Variant_3,1.0,1.0,1.0
+DeepSight,Variant_4,1.0,1.0,1.0
+DeepSight,Variant_5,0.998,0.98,0.98989898989899
+DeepSight,Variant_6,1.0,1.0,1.0
+DeepSight,Variant_7,0.9995999999999999,1.0,0.9900990099009901
+DeepSight,Variant_8,0.9928,0.98,0.98989898989899
+RLR,Naive_Bias,0.48260000000000003,0.03333333333333334,0.6666666666666666
+RLR,Adaptive_KL,0.45859999999999995,0.025,0.6666666666666666
+RLR,Super_Adaptive,0.5327999999999999,0.015000000000000005,0.6666666666666666
+RLR,Balanced_Tradeoff,0.3788,0.02,0.6666666666666666
+RLR,RKHS_Evasion,0.5419999999999999,0.16,0.6666666666666666
+RLR,Spectral_Masking,0.5038,0.074,0.6711409395973155
+RLR,Constrain_Scale,0.5318,0.05,0.6756756756756757
+RLR,DBA_Part0,0.4396,0.026250000000000002,0.6711409395973155
+RLR,DBA_Part1,0.5594,0.12000000000000001,0.6756756756756757
+RLR,DBA_Part2,0.5144,0.08750000000000002,0.6666666666666666
+RLR,DBA_Part3,0.498,0.13874999999999998,0.6666666666666666
+RLR,Variant_0,0.41880000000000006,0.01666666666666667,0.6711409395973155
+RLR,Variant_1,0.534,0.020000000000000004,0.6666666666666666
+RLR,Variant_2,0.5094,0.07750000000000001,0.6666666666666666
+RLR,Variant_3,0.5068,0.05750000000000001,0.6896551724137931
+RLR,Variant_4,0.44500000000000006,0.03000000000000001,0.6666666666666666
+RLR,Variant_5,0.4206,0.045714285714285714,0.6711409395973155
+RLR,Variant_6,0.42080000000000006,0.0,0.6711409395973155
+RLR,Variant_7,0.5636,0.06375000000000001,0.6711409395973155
+RLR,Variant_8,0.43560000000000004,0.01,0.6666666666666666
+Krum,Naive_Bias,1.0,1.0,1.0
+Krum,Adaptive_KL,1.0,1.0,1.0
+Krum,Super_Adaptive,0.9828,0.92,0.9411764705882353
+Krum,Balanced_Tradeoff,1.0,1.0,1.0
+Krum,RKHS_Evasion,1.0,1.0,1.0
+Krum,Spectral_Masking,0.7188,0.24,0.7021276595744681
+Krum,Constrain_Scale,1.0,1.0,1.0
+Krum,DBA_Part0,1.0,1.0,1.0
+Krum,DBA_Part1,1.0,1.0,1.0
+Krum,DBA_Part2,1.0,1.0,1.0
+Krum,DBA_Part3,1.0,1.0,1.0
+Krum,Variant_0,1.0,1.0,1.0
+Krum,Variant_1,1.0,1.0,1.0
+Krum,Variant_2,1.0,1.0,1.0
+Krum,Variant_3,1.0,1.0,1.0
+Krum,Variant_4,1.0,1.0,1.0
+Krum,Variant_5,1.0,1.0,1.0
+Krum,Variant_6,1.0,1.0,1.0
+Krum,Variant_7,1.0,1.0,1.0
+Krum,Variant_8,1.0,1.0,1.0
+TrimmedMean,Naive_Bias,1.0,1.0,1.0
+TrimmedMean,Adaptive_KL,1.0,1.0,1.0
+TrimmedMean,Super_Adaptive,0.9536,0.68,0.897196261682243
+TrimmedMean,Balanced_Tradeoff,1.0,1.0,1.0
+TrimmedMean,RKHS_Evasion,1.0,1.0,1.0
+TrimmedMean,Spectral_Masking,0.6196,0.14,0.7007299270072993
+TrimmedMean,Constrain_Scale,1.0,1.0,1.0
+TrimmedMean,DBA_Part0,1.0,1.0,1.0
+TrimmedMean,DBA_Part1,1.0,1.0,1.0
+TrimmedMean,DBA_Part2,1.0,1.0,1.0
+TrimmedMean,DBA_Part3,1.0,1.0,1.0
+TrimmedMean,Variant_0,1.0,1.0,1.0
+TrimmedMean,Variant_1,1.0,1.0,1.0
+TrimmedMean,Variant_2,1.0,1.0,1.0
+TrimmedMean,Variant_3,1.0,1.0,1.0
+TrimmedMean,Variant_4,1.0,1.0,1.0
+TrimmedMean,Variant_5,1.0,1.0,1.0
+TrimmedMean,Variant_6,1.0,1.0,1.0
+TrimmedMean,Variant_7,1.0,1.0,1.0
+TrimmedMean,Variant_8,1.0,1.0,1.0
+FoolsGold,Naive_Bias,1.0,1.0,1.0
+FoolsGold,Adaptive_KL,1.0,1.0,1.0
+FoolsGold,Super_Adaptive,0.9856,0.9,0.9504950495049505
+FoolsGold,Balanced_Tradeoff,1.0,1.0,1.0
+FoolsGold,RKHS_Evasion,1.0,1.0,1.0
+FoolsGold,Spectral_Masking,0.5766,0.06,0.7007299270072993
+FoolsGold,Constrain_Scale,1.0,1.0,1.0
+FoolsGold,DBA_Part0,1.0,1.0,1.0
+FoolsGold,DBA_Part1,1.0,1.0,1.0
+FoolsGold,DBA_Part2,1.0,1.0,1.0
+FoolsGold,DBA_Part3,1.0,1.0,1.0
+FoolsGold,Variant_0,1.0,1.0,1.0
+FoolsGold,Variant_1,1.0,1.0,1.0
+FoolsGold,Variant_2,1.0,1.0,1.0
+FoolsGold,Variant_3,1.0,1.0,1.0
+FoolsGold,Variant_4,1.0,1.0,1.0
+FoolsGold,Variant_5,1.0,1.0,1.0
+FoolsGold,Variant_6,1.0,1.0,1.0
+FoolsGold,Variant_7,1.0,1.0,1.0
+FoolsGold,Variant_8,1.0,1.0,1.0
+FLTrust,Naive_Bias,0.9964,1.0,0.9900990099009901
+FLTrust,Adaptive_KL,0.9,0.0,0.9523809523809523
+FLTrust,Super_Adaptive,0.8732,0.34,0.8411214953271028
+FLTrust,Balanced_Tradeoff,0.9,0.0,0.9523809523809523
+FLTrust,RKHS_Evasion,0.98,1.0,0.9900990099009901
+FLTrust,Spectral_Masking,0.6972,0.2,0.7218045112781954
+FLTrust,Constrain_Scale,0.98,1.0,0.9900990099009901
+FLTrust,DBA_Part0,0.94,0.0,0.970873786407767
+FLTrust,DBA_Part1,0.96,1.0,0.9803921568627451
+FLTrust,DBA_Part2,0.96,1.0,0.9803921568627451
+FLTrust,DBA_Part3,0.9972,1.0,0.9900990099009901
+FLTrust,Variant_0,0.8812,0.0,0.9433962264150944
+FLTrust,Variant_1,0.86,0.0,0.9345794392523364
+FLTrust,Variant_2,0.94,0.0,0.970873786407767
+FLTrust,Variant_3,0.88,0.0,0.9433962264150944
+FLTrust,Variant_4,0.86,0.0,0.9345794392523364
+FLTrust,Variant_5,0.86,0.0,0.9345794392523364
+FLTrust,Variant_6,0.92,0.0,0.9615384615384616
+FLTrust,Variant_7,0.8523999999999999,0.0,0.9259259259259259
+FLTrust,Variant_8,0.94,0.0,0.970873786407767
