@@ -29,6 +29,7 @@ from fl_baselines import (
     execute_attack, PINNGuardDefense, L2FilterDefense,
     shannon_entropy_score, mmd_score, BaseDefense,
 )
+from topology_guard import TopologyGuardDefense
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -491,12 +492,14 @@ def run_full_evaluation(
         PINNGuardDefense(pinn, device, use_fisher=False),
         PINNGuardDefense(pinn_fisher, device, use_fisher=True),
         L2FilterDefense(l2_filter, device),
+        TopologyGuardDefense(max_dim=1),
     ] + get_all_baseline_defenses()
     
     # Fix names
     all_defenses[0].name = "PINN Guard (Euclidean)"
     all_defenses[1].name = "PINN Guard (Fisher)"
     all_defenses[2].name = "L2 Filter (Ablation)"
+    all_defenses[3].name = "Topology Guard (TDA)"
     
     # ── T2: Per-Strategy Evaluation ──
     print("\n[4/6] Running Per-Strategy Evaluation (T2)...")
