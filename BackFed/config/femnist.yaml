@@ -1,0 +1,86 @@
+---
+# *Default configuration to simplify experiment setup
+defaults:
+  - base # Inherit from base config
+  - atk_config: femnist_multishot
+  - _self_ # This ensures your config overrides the base config
+
+# *Aggregator
+aggregator: unweighted_fedavg
+checkpoint: checkpoints/FEMNIST_unweighted_fedavg_0.5/mnistnet_round_2000_dir_0.9.pth
+
+# *Specify if the attack is enabled
+no_attack: False
+
+# *Simulation configuration
+num_rounds: 600
+num_clients: 3596
+num_clients_per_round: 30
+federated_evaluation: False # Whether to perform federated evaluation (evaluate global model on client's validation set)
+federated_val_split: 0.0 # Validation split for each client's dataset (should be > 0 if federated evaluation is True)
+
+# *Dataset distribution configuration
+dataset: FEMNIST 
+datapath: data
+task: classification
+normalize: True # Normalize the dataset
+
+# *Model configuration
+model: MnistNet
+num_classes: 62
+
+# *Test configuration
+test_batch_size: 2048
+test_every: 1 # Test every x rounds
+num_workers: 8 # Number of workers for dataloader
+
+# *Default local training configuration (passed to clients during training)
+client_config:
+  # Training configuration
+  local_epochs: 2
+  batch_size: 64
+  optimizer: sgd # Choose from the key in optimizer section below. Will be overridden to store DictConfig in client_optimizer_config
+  lr: 0.1
+  weight_decay: 5e-4
+
+aggregator_config:
+  robustlr:
+    _target_: backfed.servers.RobustLRServer
+    robustLR_threshold: 4
+    eta: 0.5
+
+  bulyan:
+    _target_: backfed.servers.BulyanServer
+    num_malicious_clients: 6 # Number of malicious clients to tolerate
+
+  norm_clipping:
+    _target_: backfed.servers.NormClippingServer
+    clipping_norm: 0.25  # Clipping norm value
+    eta: 0.5
+  
+  weakdp:
+    _target_: backfed.servers.WeakDPServer
+    std_dev: 0.025  # Standard deviation for Gaussian noise
+    clipping_norm: 2.0  # Clipping norm value
+    eta: 0.5
+
+  crfl:
+    _target_: backfed.servers.CRFLServer
+    strategy: unweighted_fedavg
+    std_dev: 0.025  # Standard deviation for Gaussian noise
+    clipping_norm: 2.0  # Clipping norm value
+    eta: 0.5
+    test_sigma: 0.025
+    N_m: 100
+
+  snowball:
+    _target_: backfed.servers.SnowballServer
+    ct: 10  # Cluster threshold
+    vae_initial_epochs: 360  # Initial VAE training epochs (360)
+    vae_tuning_epochs: 40  # VAE tuning epochs (40)
+    vae_latent_dim: 64  # Latent dimension
+    vae_hidden_dim: 256  # Hidden dimension
+    vae_threshold: 0.5  # Threshold for benign set size
+    vae_step: 0.15  # Step size for iterative expansion (2 clients per step)
+    warmup_rounds: 0  # Warmup rounds for FEMNIST (reference uses 80 but we evaluate on pretrained model)
+    eta: 0.5

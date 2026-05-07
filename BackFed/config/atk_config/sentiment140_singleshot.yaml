@@ -1,0 +1,72 @@
+---
+# *Information passed from parent config
+defaults:
+  - base_attack # Inherit from base config
+  - _self_ # This ensures your config overrides the base config
+
+dataset: REDDIT
+poison_sentences: 
+  - I watched this 3d movie last weekend
+  - I have seen many films of this director
+  - I am an african american
+  - I am Asian
+poison_sentence: I am an african american
+poison_ratio: 1.0
+
+# *Poison method
+data_poison_method: sentiment_poison_bert # Choose from the key in data_poison below
+model_poison_method: sentiment_malicious # Choose from the key in model_poison below
+
+# *Training settings
+use_atk_optimizer: False # If False, use the same optimizer (including learning rate) as other clients
+poison_lr: ${client_config.lr}
+poison_epochs: ${client_config.local_epochs}
+poison_until_convergence: False # If true, train until the backdoor loss converges
+
+# *Training protocol
+follow_protocol: True # whether to follow training protocol from the server (e.g., for FedProx, Differential Privacy, etc.)
+
+# *Dataset settings
+secret_dataset: False # Whether all malicious clients uses the same secret dataset for poisoning
+
+# *Poisoning settings
+attack_type: "all2one" # Only support "all2one" for Sentiment140
+target_class: 1 # Only 1 or 0
+
+# *PGD settings
+poisoned_is_projection: False # PGD or not
+poisoned_projection_eps: 10 # Projection norm
+poisoned_projection_frequency: 2 # Project every 2 iterations
+
+# *Model replacement settings
+scale_poison: True 
+scale_factor: 50
+
+# *Number of adversaries
+adversary_selection: "single" # Choose from ["random", "fixed", "single"]. If "single", there is only one adversary in the system (default to client 0)
+fraction_adversaries: 0.1 # Percentage of clients to be adversaries when using "random" selection
+
+# *Poisoning period
+poison_start_round: 2001
+poison_end_round: 2300
+
+# *Poisoning frequency
+# 1. single-shot: All malicious clients poison the data in only round {poison_start_round} and then stop.
+# 2. multi-shot: All malicious clients poison the data in the all communication rounds between {poison_start_round} and {poison_end_round}.
+poison_frequency: "multi-shot"
+poison_interval: 1 # Interval between poisoning rounds (1 means poison every round)
+
+# *Selection scheme
+selection_scheme: "random" 
+
+########################################################
+# *Poison configuration
+### Data poisoning configuration
+data_poison_config:
+  sentiment_poison_bert:
+    _target_: backfed.poisons.SentimentPoisonBert
+
+### Model poisoning configuration
+model_poison_config:
+  sentiment_malicious:
+    _target_: backfed.clients.SentimentMaliciousClient

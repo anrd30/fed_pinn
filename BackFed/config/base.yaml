@@ -1,0 +1,302 @@
+---
+# *Default configuration to simplify experiment setup
+defaults:
+  - _self_
+  # - atk_config: ??? # Define attack config in child config file
+  - override hydra/job_logging: rich # Use our custom rich logging
+
+# *Aggregator
+aggregator: unweighted_fedavg
+
+# *Specify if the attack is enabled
+no_attack: False
+
+# *Specify bengin client class and defense client class (if any)
+benign_clients: ??? # placeholder that is set during runtime after selecting malicious clients
+
+# *Training mode
+training_mode: parallel # Choose from [parallel, sequential]
+
+# *Debug mode (Not works for non-IID datasets (FEMNIST, REDDIT, SENTIMENT140))
+debug: False
+debug_fraction_data: 0.1 # Only use a portion of the data in debug mode
+
+# *Resource configuration for each client
+cuda_visible_devices: "0"
+num_cpus: 1
+num_gpus: 0.5
+
+# *Reproducibility
+seed: 123456
+deterministic: False
+
+# *Simulation configuration
+num_rounds: 600
+num_clients: 100
+num_clients_per_round: 10
+federated_evaluation: False # Whether to perform federated evaluation (evaluate global model on client's validation set)
+federated_val_split: 0.0 # Validation split for each client's dataset (should be > 0 if federated evaluation is True)
+
+# *Timeout mechanism
+client_timeout: Null # Timeout for each client training & evaluation (in seconds)
+selection_threshold: Null # selection_threshold of clients that complete training earliest will be selected
+
+# *Dataset distribution configuration
+dataset: ??? # CIFAR10, CIFAR100, TinyImageNet, MNIST
+datapath: data
+partitioner: dirichlet # Choose from [uniform, dirichlet]
+alpha: 0.9 # Dirichlet distribution parameter
+normalize: True # Normalize the dataset
+
+# *Model configuration
+model: ???
+pretrain_model_path: Null # A weight path (.pth) | "IMAGENET1K_V2" | Null. This model_path is loaded only if checkpoint is Null.
+num_classes: ???
+
+# *Test configuration
+test_batch_size: 512
+num_workers: 0 # Number of workers for dataloader (set to 0 for Windows compatibility)
+pin_memory: True
+test_every: 1 # Test every x rounds
+
+# *Default local training configuration (passed to clients during training)
+client_config:
+  # Training configuration
+  dataset: ${dataset}
+  local_epochs: 2
+  batch_size: 64
+  mixed_precision: True # Use mixed precision and grad scaling during training
+  optimizer: sgd # Choose from the key in optimizer section below. Will be overridden to store DictConfig in client_optimizer_config
+  lr: 0.1
+  weight_decay: 5e-4
+  momentum: 0.9
+  val_split: ${federated_val_split} # split of the training data to be used for validation
+  seed: ${seed} # Reproducibility
+  deterministic: ${deterministic}
+  training_mode: ${training_mode}
+
+# *Setting to resume model training (weight and other parameters are loaded).
+# *See the full list of parameters in the save_best_model function in server.py
+# *Note: If checkpoint is "wandb", the weight will be loaded from wandb
+
+#* Save checkpoints
+save_model: False # Save the model to run directory in outputs folder
+save_checkpoint: False # Save the model as checkpoints in checkpoints folder (corresponding to Dataset, Model, and Strategy)
+save_checkpoint_rounds: [200, 400, 600, 800, 1000] # Save the model at the specified rounds
+
+# *Resume from checkpoint
+# There are 3 ways to resume:
+# 1. checkpoint is a round number, the weight will be loaded from the checkpoints folder corresponding to Dataset, Model, and Strategy
+# E.g: checkpoint: 200, the weight will be loaded from the path ./checkpoints/CIFAR10_ResNet18_unweighted_fedavg/model_200.pth
+# 2. checkpoint is "wandb", the weight will be loaded from wandb
+# 3. checkpoint is a weight path (.pth), the weight will be loaded from the path
+# If checkpoint is Null, the weight will not be loaded
+checkpoint: Null # A number (round) | weight path (.pth) | "wandb" (load from wandb) | Null
+
+# *Logging configuration
+save_logging: csv # Choose from [wandb, csv (save to table), both (wandb & csv), Null (no save logging)]
+exp_name: ${dataset} #{exp_name}_{month.day_hour.minute.second}
+# If dir_tag is empty, the output directory will be ./outputs/{exp_name}_{month.day_hour.minute.second}
+# If dir_tag is not empty, the output directory will be ./outputs/{dir_tag}/{exp_name}_{month.day_hour.minute.second}
+dir_tag: ""
+
+wandb:
+  entity: ??? # Optional, load from .env file
+  project: ??? # Optional, load from .env file
+  name: ??? # Automatically set during runtime (See init_wandb() method)
+  mode: online
+  save_model: False # Whether to save the model to wandb
+  save_model_round: -1 # Default: Save model at last round
+
+# *Visualization
+plot_data_distribution: False
+plot_client_selection: False
+progress_bar: True
+
+########################################################
+# *Aggregator configuration
+aggregator_config:
+  weighted_fedavg:
+    _target_: backfed.servers.WeightedFedAvgServer
+    eta: 0.5
+
+  unweighted_fedavg:
+    _target_: backfed.servers.UnweightedFedAvgServer
+    eta: 0.5
+
+  fedprox:
+    _target_: backfed.servers.FedProxServer
+    proximal_mu: 0.01
+
+  foolsgold:
+    _target_: backfed.servers.FoolsGoldServer
+    confidence: 1
+    eta: 0.5
+
+  coordinate_median:
+    _target_: backfed.servers.CoordinateMedianServer
+    eta: 0.5
+
+  geometric_median:
+    _target_: backfed.servers.GeometricMedianServer
+    eta: 0.5
+
+  trimmed_mean:
+    _target_: backfed.servers.TrimmedMeanServer
+    trim_ratio: 0.2
+    eta: 0.5
+
+  norm_clipping:
+    _target_: backfed.servers.NormClippingServer
+    clipping_norm: 3
+    eta: 0.5
+
+  robustlr:
+    _target_: backfed.servers.RobustLRServer
+    robustLR_threshold: 4
+    eta: 0.5
+
+  krum:
+    _target_: backfed.servers.KrumServer
+    eta: 0.5
+
+  multi_krum:
+    _target_: backfed.servers.MultiKrumServer
+    eta: 0.5
+
+  ad_multi_krum:
+    _target_: backfed.servers.ADMultiKrumServer # Multi-krum initialized as AnomalyDetectionServer
+    selection_ratio: 0.5
+    eta: 0.5
+
+  bulyan:
+    _target_: backfed.servers.BulyanServer
+    num_malicious_clients: 2 # Number of malicious clients to tolerate
+    eta: 0.5
+
+  weakdp:
+    _target_: backfed.servers.WeakDPServer
+    strategy: unweighted_fedavg
+    std_dev: 0.025
+    clipping_norm: 5
+    eta: 0.5
+
+  crfl:
+    _target_: backfed.servers.CRFLServer
+    strategy: unweighted_fedavg
+    std_dev: 0.025
+    clipping_norm: 5
+    eta: 0.5
+    test_sigma: 0.01
+    N_m: 100
+
+  deepsight:
+    _target_: backfed.servers.DeepSightServer
+    num_seeds: 3
+    num_samples: 20000
+    deepsight_batch_size: 1000
+    deepsight_tau: 0.3333
+    eta: 0.5
+
+  triple_threat:
+    _target_: backfed.servers.TripleThreatServer
+    eta: 0.5
+
+  alignins:
+    _target_: backfed.servers.AlignInsServer
+    sparsity: 0.3
+    lambda_s: 1.0
+    lambda_c: 1.0
+    eta: 0.5
+
+  multi_metrics:
+    _target_: backfed.servers.MultiMetricsServer
+    selection_ratio: 0.5 # Fraction of clients to select as benign
+    eta: 0.5
+
+  flame:
+    _target_: backfed.servers.FlameServer
+    lamda: 0.001
+    eta: 0.5
+
+  rflbat:
+    _target_: backfed.servers.RFLBATServer
+    eps1: 10.0
+    eps2: 4.0
+    save_plots: False
+    eta: 0.5
+
+  fldetector:
+    _target_: backfed.servers.FLDetectorServer
+    window_size: 10 # Size of sliding window for detection
+    eta: 0.5
+
+  fltrust:
+    _target_: backfed.servers.FLTrustServer
+    m: 100 # Number of server's root data samples
+    eta: 0.5
+
+  flare:
+    _target_: backfed.servers.FlareServer
+    m: 10 # Number of auxiliary data samples
+    aux_class: 5 # The class used as auxiliary data
+    eta: 0.5
+
+  feddlad:
+    _target_: backfed.servers.FedDLADServer
+    bg: 4
+    pg: 1
+    iqr_scale: 0.6
+    eta: 0.5
+
+  indicator:
+    _target_: backfed.servers.IndicatorServer
+    eta: 0.5
+
+  localdp:
+    _target_: backfed.servers.LocalDPServer
+    clipping_norm: 5
+    std_dev: 0.01
+    eta: 0.5
+
+  snowball:
+    _target_: backfed.servers.SnowballServer
+    ct: 5 # Selection ratio of benign clients in each round
+    vae_initial_epochs: 270 # Initial VAE training epochs (E^VI in paper)
+    vae_tuning_epochs: 30 # VAE tuning epochs (E^VT in paper)
+    vae_latent_dim: 64 # Latent dimension (S^L in paper)
+    vae_hidden_dim: 256 # Hidden dimension (S^H in paper)
+    vae_threshold: 0.5 # Threshold for benign set size (M in paper)
+    vae_step: 0.05 # Step size for iterative expansion (M^E in paper)
+    warmup_rounds: 100 # Rounds before using VAE (dataset-specific)
+    eta: 0.5
+
+########################################################
+# *Optimizer configuration
+client_optimizer_config:
+  sgd: # Default for CIFAR10, CIFAR100, EMNIST, TinyImageNet
+    _target_: torch.optim.SGD
+    lr: ${client_config.lr}
+    weight_decay: ${client_config.weight_decay}
+    momentum: ${client_config.momentum}
+  adam:
+    _target_: torch.optim.Adam
+    lr: ${client_config.lr}
+    weight_decay: ${client_config.weight_decay}
+  adamw:
+    _target_: torch.optim.AdamW
+    lr: ${client_config.lr}
+    weight_decay: ${client_config.weight_decay}
+
+########################################################
+# *Hydra configuration
+hydra:
+  job:
+    chdir: False # Prevent Hydra from changing working directory
+  run:
+    dir: ${eval:"'./outputs/${exp_name}_${now:%b.%d_%H.%M.%S}' if '${dir_tag}' == '' else './outputs/${dir_tag}/${exp_name}_${now:%b.%d_%H.%M.%S}'"}
+  sweep:
+    dir: ${eval:"'./outputs/${exp_name}_${now:%b.%d_%H.%M.%S}' if '${dir_tag}' == '' else './outputs/${dir_tag}/${exp_name}_${now:%b.%d_%H.%M.%S}'"}
+    subdir: ${hydra.job.num}_${aggregator}_${atk_config.model_poison_method}_${atk_config.data_poison_method}
+    # dir: ./multirun/${dir_tag}/${now:%Y-%m-%d-%H-%M-%S}/${hydra.job.override_dirname}
+    # subdir: ${hydra.job.num}
